@@ -11,9 +11,9 @@ vizinhos(lugoj, [d(mehadia, 70), d(timisoara, 111)]).
 vizinhos(mehadia, [d(dobreta, 75), d(lugoj, 70)]).
 vizinhos(neamt, [d(iasi, 87)]).
 vizinhos(oradea, [d(sibiu, 151), d(zerind, 71)]).
-vizinhos(pitesti, [d(rimnicu-vilcea, 97), d(craiova, 138), d(bucharest, 101)]).
-vizinhos(rimnicu-vilcea, [d(sibiu, 80), d(pitesti, 97), d(craiova, 146)]).
-vizinhos(sibiu, [d(oradea, 151), d(arad, 140), d(fagaras, 99), d(rimnicu-vilcea, 80)]).
+vizinhos(pitesti, [d(rimnicu_vilcea, 97), d(craiova, 138), d(bucharest, 101)]).
+vizinhos(rimnicu_vilcea, [d(sibiu, 80), d(pitesti, 97), d(craiova, 146)]).
+vizinhos(sibiu, [d(oradea, 151), d(arad, 140), d(fagaras, 99), d(rimnicu_vilcea, 80)]).
 vizinhos(timisoara, [d(arad, 118), d(lugoj, 111)]).
 vizinhos(urziceni, [d(bucharest, 85), d(hirsova, 98), d(vaslui, 142)]).
 vizinhos(vaslui, [d(iasi, 92), d(urziceni, 142)]).
@@ -33,7 +33,7 @@ heuristica(mehadia, 241).
 heuristica(neamt, 234).
 heuristica(oradea, 380).
 heuristica(pitesti, 98).
-heuristica(rimnicu-vilcea, 193).
+heuristica(rimnicu_vilcea, 193).
 heuristica(sibiu, 253).
 heuristica(timisoara, 329).
 heuristica(urziceni, 80).
@@ -56,5 +56,18 @@ melhor_caminho(O, [O|Cs]) :-
 %  ?- melhor_vizinho(sibiu, V).
 %  V = rimnicu_vilcea.
 melhor_vizinho(O, V) :-
-	% ... continuar
-	.
+	vizinhos(O,B),
+	list_min(B,V).
+
+list_min([L|Ls], Min) :-
+    d(_,X) = L,
+    list_min(Ls, X, Min).
+
+list_min([], Min, Min).
+
+list_min([L|Ls], Min0, Min) :-
+    d(_,X) = L,
+    Min1 is min(X, Min0),
+    list_min(Ls, Min1, Min).
+
+
