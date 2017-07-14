@@ -55,9 +55,12 @@ melhor_caminho(O, [O|Cs]) :-
 % Exemplo:
 %  ?- melhor_vizinho(sibiu, V).
 %  V = rimnicu_vilcea.
-melhor_vizinho(O, V) :-
+melhor_vizinho(O, Z) :-
 	vizinhos(O,B),
-	list_min(B,V).
+	list_min(B,L),
+	A = d(Z,L),
+	member(A,B), !.
+
 
 list_min([L|Ls], Min) :-
     d(_,X) = L,
