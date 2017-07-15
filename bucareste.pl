@@ -62,6 +62,12 @@ melhor_vizinho(O, Z) :-
 	member(A,B), !.
 
 
+%list_min( L, Min) is
+% Verdadeiro se Min é o mínimo da lista L, tal que L é uma lista de
+% distancias de estruturas d(Cidade,Distancia)
+%Exemplo
+%?- list_min([1, 2, 3], Min).
+%Min = 1.
 list_min([L|Ls], Min) :-
     d(_,X) = L,
     list_min(Ls, X, Min).
