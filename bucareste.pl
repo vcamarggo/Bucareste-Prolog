@@ -61,22 +61,35 @@ melhor_vizinho(O, Z) :-
 	A = d(Z,L),
 	member(A,B), !.
 
-
 %list_min( L, Min) is
 % Verdadeiro se Min é o mínimo da lista L, tal que L é uma lista de
-% distancias de estruturas d(Cidade,Distancia)
+% distancias de estruturas d(Cidade,Distancia), que na execução é
+% somada com o valor heurístico da cidade
 %Exemplo
-%?- list_min([1, 2, 3], Min).
-%Min = 1.
+%?- list_min([d(sibiu, 80), d(pitesti, 97), d(craiova, 146)], Min).
+%Min = pitesti.
 list_min([L|Ls], Min) :-
-    d(_,X) = L,
-    list_min(Ls, X, Min).
+    list_min(L, Ls, Min).
 
-list_min([], Min, Min).
+list_min(L, [], Min):-
+	d(_, Min) = L.
 
-list_min([L|Ls], Min0, Min) :-
-    d(_,X) = L,
-    Min1 is min(X, Min0),
-    list_min(Ls, Min1, Min).
+list_min(L, [J|Js], Min) :-
+    d(A,X) = L,
+    d(B, Y) = J,
+    heuristica(A,K),
+    heuristica(B,H),
+    XHeur is X + K,
+    Min0Heur is Y + H,
+    Min1 is min(XHeur, Min0Heur),
+    NrTemp is Min1 - X,
+   (NrTemp =:= K ->  list_min(L, Js, Min);  list_min(J, Js, Min)).
+
+
+
+
+
+
+
 
 
