@@ -59,7 +59,7 @@ melhor_vizinho(O, Z) :-
 	vizinhos(O,B),
 	list_min(B,L),
 	A = d(Z,L),
-	member(A,B), !.
+	membro(A,B), !.
 
 %list_min( L, Min) is
 % Verdadeiro se Min é o mínimo da lista L, tal que L é uma lista de
@@ -86,7 +86,10 @@ list_min(L, [J|Js], Min) :-
    (NrTemp =:= K ->  list_min(L, Js, Min);  list_min(J, Js, Min)).
 
 
+membro(X, [X | _]).
 
+membro(X, [_ | XS]) :-
+    membro(X, XS).
 
 
 
