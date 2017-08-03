@@ -85,11 +85,18 @@ list_min(L, [J|Js], Min) :-
     NrTemp is Min1 - X,
    (NrTemp =:= K ->  list_min(L, Js, Min);  list_min(J, Js, Min)).
 
+% membro(?X, ?XS) is nondet
+%
+% Verdadeiro se X é um elemento de XS
+% Exemplo:
+%  ?- Membro(3, [1,2,3].
+%  true.
 
 membro(X, [X | _]).
 
 membro(X, [_ | XS]) :-
     membro(X, XS).
+
 
 
 
