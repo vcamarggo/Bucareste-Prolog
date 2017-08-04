@@ -61,13 +61,14 @@ melhor_vizinho(O, Z) :-
 	A = d(Z,L),
 	membro(A,B), !.
 
-%list_min( L, Min) is
+%list_min( L, Min) is nondet
 % Verdadeiro se Min é o mínimo da lista L, tal que L é uma lista de
 % distancias de estruturas d(Cidade,Distancia), que na execução é
 % somada com o valor heurístico da cidade
 %Exemplo
 %?- list_min([d(sibiu, 80), d(pitesti, 97), d(craiova, 146)], Min).
 %Min = pitesti.
+
 list_min([L|Ls], Min) :-
     list_min(L, Ls, Min).
 
